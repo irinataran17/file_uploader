@@ -35,17 +35,6 @@ function custom_upload_file() {
         $filename = $_FILES['file']['name'];
         $destination = $_SERVER['DOCUMENT_ROOT'] . "/file_uploader/uploads/" . $filename;
 
-        // connecting to the DB and writing data into the sql
-        require 'db.php';
-        $conn = getDB();
-        mysqli_query($conn, "INSERT INTO uploads (name, destination) VALUES ('$filename', '$destination')");
-        
-        $sql = "INSERT INTO uploads (name, destination) VALUES ('$filename', '$destination')";
-        $results = mysqli_query($conn, $sql);
-
-        if ($results === false) {
-            echo mysqli_error($conn);
-        }
 
         if (file_exists($destination)) {
             $filename = "copy_of_" . $filename;
@@ -54,6 +43,17 @@ function custom_upload_file() {
 
         if (move_uploaded_file($_FILES['file']['tmp_name'], $destination)) {
             // echo "File uploaded successfully.";
+            // connecting to the DB and writing data into the sql
+            require 'db.php';
+            $conn = getDB();
+            // mysqli_query($conn, "INSERT INTO uploads (name, destination) VALUES ('$filename', '$destination')");
+            
+            $sql = "INSERT INTO uploads (name, destination) VALUES ('$filename', '$destination')";
+            $results = mysqli_query($conn, $sql);
+
+            if ($results === false) {
+                echo mysqli_error($conn);
+            }
         } else {
             throw new Exception('Unable to move uploaded file');
         }
