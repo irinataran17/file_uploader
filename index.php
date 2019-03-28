@@ -1,9 +1,9 @@
 <?php
 
-require 'includes/db.php';
+// require 'includes/db.php';
 require 'includes/upload.php';
 
-$conn = getDB();
+// $conn = getDB();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     //var_dump($_FILES);
@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 					<h1>Welcome to the file uploader</h1>
 			</header>
 
-            <div class="flex "> 
+            <div class="flex"> 
                 <div>
                     <h3>Upload files</h3>
                     <a href="/file_uploader/">Upload File</a>
@@ -74,6 +74,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <footer id="footer">
         © File Uploader. Irina Taran
     </footer>
-    
+
 </body>
 </html>

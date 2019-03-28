@@ -7,6 +7,7 @@ if (!empty($_GET['filename'])) {
     if ($filedata) {
         unlink($filename);
         header('Location:/file_uploader/list.php');
+
     } else {
         throw new Exception("Error: Unanble to open $filename");
     }

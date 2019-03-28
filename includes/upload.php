@@ -1,5 +1,7 @@
 <?php
 
+
+//writes the file to the server
 function custom_upload_file() {
     try {
 
@@ -29,7 +31,27 @@ function custom_upload_file() {
             throw new Exception('Invalid file type');
         }
         
-        $destination = $_SERVER['DOCUMENT_ROOT'] . "/file_uploader/uploads/" . $_FILES['file']['name'];
+        // $destination = $_SERVER['DOCUMENT_ROOT'] . "/file_uploader/uploads/" . $_FILES['file']['name'];
+        $filename = $_FILES['file']['name'];
+        $destination = $_SERVER['DOCUMENT_ROOT'] . "/file_uploader/uploads/" . $filename;
+
+        // connecting to the DB and writing data into the sql
+        require 'db.php';
+        $conn = getDB();
+        mysqli_query($conn, "INSERT INTO uploads (name, destination) VALUES ('$filename', '$destination')");
+        
+        $sql = "INSERT INTO uploads (name, destination) VALUES ('$filename', '$destination')";
+        $results = mysqli_query($conn, $sql);
+
+        if ($results === false) {
+            echo mysqli_error($conn);
+        }
+
+        if (file_exists($destination)) {
+            $filename = "copy_of_" . $filename;
+            $destination = $_SERVER['DOCUMENT_ROOT'] . "/file_uploader/uploads/" . $filename;
+        }
+
         if (move_uploaded_file($_FILES['file']['tmp_name'], $destination)) {
             // echo "File uploaded successfully.";
         } else {
