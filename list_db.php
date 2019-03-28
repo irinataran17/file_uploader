@@ -55,9 +55,9 @@ if ($results === false) {
                 <td><?= $document[1] ?></td>
                 <td><?= $document[2] ?></td>
                 <td>
-                    <a href="/file_uploader/download.php">Download</a> 
+                    <a href="/file_uploader/download.php?filename=<?php print $document[1]; ?>">Download</a> 
                     | 
-                    <a href="/file_uploader/delete.php">Delete</a>
+                    <a href="/file_uploader/delete_db.php?filename=<?php print $document[1]; ?>">Delete</a>
                 </td>
             </tr>
         <?php endforeach; ?>
